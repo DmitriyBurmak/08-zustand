@@ -3,21 +3,29 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  weight: ['400', '700'],
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-roboto',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Notes',
   description:
     'Notes is a simple and fast application for creating, searching, and saving notes. Everything is at your fingertips when you need it.',
   openGraph: {
-    title: '',
-    description: '',
+    title: 'NoteHub - Усі нотатки',
+    description: 'Переглядайте та керуйте всіма своїми нотатками на NoteHub.',
     url: 'https://www.edu.goit.global/ru/learn/29773997/38700675/39972039/training?blockId=41035403',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
         width: 1200,
         height: 630,
-        alt: 'Notes',
+        alt: 'NoteHub - Notes Application',
       },
     ],
   },
@@ -32,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={roboto.className}>
         <TanStackProvider>
           <Header />
           <main>{children}</main>
