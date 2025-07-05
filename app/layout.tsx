@@ -2,6 +2,26 @@ import TanStackProvider from '../components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Notes',
+  description:
+    'Notes is a simple and fast application for creating, searching, and saving notes. Everything is at your fingertips when you need it.',
+  openGraph: {
+    title: '',
+    description: '',
+    url: 'https://www.edu.goit.global/ru/learn/29773997/38700675/39972039/training?blockId=41035403',
+    images: [
+      {
+        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Notes',
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
