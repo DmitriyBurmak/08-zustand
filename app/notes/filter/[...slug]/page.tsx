@@ -7,6 +7,7 @@ import {
 import NotesClient from './Notes.client';
 import type { NotesResponse } from '@/types/note';
 import { Metadata } from 'next';
+import { getBaseUrl, NOTEHUB_OG_IMAGE } from '@/lib/utils/seo';
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
@@ -26,9 +27,7 @@ export async function generateMetadata({
       ? 'Переглядайте та керуйте всіма своїми нотатками на NoteHub.'
       : `Переглядайте та керуйте своїми нотатками, відфільтрованими за тегом "${tag}" на NoteHub.`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
   const pageUrl = `${baseUrl}/notes/filter/${tag.toLowerCase()}`;
 
   return {
@@ -40,9 +39,7 @@ export async function generateMetadata({
       url: pageUrl,
       images: [
         {
-          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-          width: 1200,
-          height: 630,
+          ...NOTEHUB_OG_IMAGE,
           alt: `NoteHub - ${tag === 'all' ? 'All notes' : `${tag} notes`} page`,
         },
       ],

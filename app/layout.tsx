@@ -4,6 +4,7 @@ import Footer from '@/components/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { getBaseUrl, NOTEHUB_OG_IMAGE } from '@/lib/utils/seo';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -12,6 +13,8 @@ const roboto = Roboto({
   display: 'swap',
 });
 
+const baseUrl = getBaseUrl();
+
 export const metadata: Metadata = {
   title: 'NoteHub - Усі нотатки',
   description:
@@ -19,14 +22,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NoteHub - Усі нотатки',
     description: 'Переглядайте та керуйте всіма своїми нотатками на NoteHub.',
-    url: process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:3000',
+    url: baseUrl,
     images: [
       {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-        width: 1200,
-        height: 630,
+        ...NOTEHUB_OG_IMAGE,
         alt: 'NoteHub - Notes Application',
       },
     ],

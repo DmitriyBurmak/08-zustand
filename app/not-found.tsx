@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import css from './not-found.module.css';
 import { Metadata } from 'next';
+import { getBaseUrl, NOTEHUB_OG_IMAGE } from '@/lib/utils/seo';
+
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
   title: '404 - Page not found',
@@ -8,14 +11,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: '404 - Page not found',
     description: 'Sorry, the page you are looking for does not exist.',
-    url: process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:3000',
+    url: baseUrl,
     images: [
       {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-        width: 1200,
-        height: 630,
+        ...NOTEHUB_OG_IMAGE,
         alt: 'NoteHub - Page not found',
       },
     ],
