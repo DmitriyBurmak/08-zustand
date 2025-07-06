@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createNote } from '@/lib/api';
 import type { NoteTag, CreateNotePayload } from '@/types/note';
 import css from './NoteForm.module.css';
 import { useRouter } from 'next/navigation';
+import { useNoteStore } from '@/lib/store/noteStore';
+import toast from 'react-hot-toast';
 
 const tags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
 
@@ -14,24 +16,34 @@ interface NoteFormProps {}
 export default function NoteForm({}: NoteFormProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [tag, setTag] = useState<NoteTag>('Todo');
+  const { draft, setDraft, clearDraft } = useNoteStore();
+  const [title, setTitle] = useState(draft.title);
+  const [content, setContent] = useState(draft.content);
+  const [tag, setTag] = useState<NoteTag>(draft.tag);
   const [errors, setErrors] = useState<{
     title?: string;
     content?: string;
     tag?: string;
   }>({});
+
+  useEffect(() => {
+    setDraft({ title, content, tag });
+  }, [title, content, tag, setDraft]);
+
   const { mutate: createMutation, isPending } = useMutation({
     mutationFn: (values: CreateNotePayload) => createNote(values),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
+      clearDraft();
+      toast.success('Нотатка успішно створена!');
       router.push('/notes/filter/all');
     },
     onError: (error: Error) => {
       console.error('Помилка при створенні нотатки:', error);
+      toast.error(`Помилка: ${error.message}`);
     },
   });
+
   const validateForm = (): boolean => {
     const newErrors: { title?: string; content?: string; tag?: string } = {};
     if (title.trim().length < 3 || title.trim().length > 50) {
@@ -46,11 +58,14 @@ export default function NoteForm({}: NoteFormProps) {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!validateForm()) {
       return;
     }
+
     const payload: CreateNotePayload = {
       title: title.trim(),
       content: content.trim(),
