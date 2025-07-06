@@ -1,10 +1,8 @@
-// app/notes/action/create/page.tsx
 import React from 'react';
-import NoteForm from '@/components/NoteForm/NoteForm'; // Будемо використовувати оновлену NoteForm
+import NoteForm from '@/components/NoteForm/NoteForm';
 import { Metadata } from 'next';
-import css from './CreateNote.module.css'; // Імпорт CSS для цієї сторінки
+import css from './CreateNote.module.css';
 
-// Метадані для сторінки створення нотатки
 export const metadata: Metadata = {
   title: 'NoteHub - Створити нотатку',
   description:
@@ -18,7 +16,7 @@ export const metadata: Metadata = {
       : 'http://localhost:3000/notes/action/create',
     images: [
       {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg', // Використовуємо те саме зображення
+        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
         width: 1200,
         height: 630,
         alt: 'NoteHub - Create Note Page',
@@ -34,7 +32,6 @@ export default function CreateNotePage() {
     <main className={css.main}>
       <div className={css.container}>
         <h1 className={css.title}>Створити нотатку</h1>
-        {/* Компонент NoteForm буде тут. Він буде обробляти логіку форми. */}
         <NoteForm />
       </div>
     </main>
