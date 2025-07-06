@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     'Create a new note in NoteHub. Add new notes quickly and easily.',
   openGraph: {
-    title: 'NoteHub - Створити нотатку',
+    title: 'NoteHub - Create a note',
     description:
       'Create a new note in NoteHub. Add new notes quickly and easily.',
     url: `${baseUrl}/notes/action/create`,

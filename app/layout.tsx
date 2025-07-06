@@ -16,12 +16,12 @@ const roboto = Roboto({
 const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
-  title: 'NoteHub - Усі нотатки',
+  title: 'NoteHub - All notes',
   description:
     'Notes is a simple and fast application for creating, searching, and saving notes. Everything is at your fingertips when you need it.',
   openGraph: {
-    title: 'NoteHub - Усі нотатки',
-    description: 'Переглядайте та керуйте всіма своїми нотатками на NoteHub.',
+    title: 'NoteHub - All notes',
+    description: 'View and manage all your notes on NoteHub.',
     url: baseUrl,
     images: [
       {

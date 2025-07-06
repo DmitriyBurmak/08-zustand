@@ -35,25 +35,25 @@ export default function NoteForm({}: NoteFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
-      toast.success('Нотатка успішно створена!');
+      toast.success('Note successfully created!');
       router.push('/notes/filter/all');
     },
     onError: (error: Error) => {
-      console.error('Помилка при створенні нотатки:', error);
-      toast.error(`Помилка: ${error.message}`);
+      console.error('Error creating a note:', error);
+      toast.error(`Error: ${error.message}`);
     },
   });
 
   const validateForm = (): boolean => {
     const newErrors: { title?: string; content?: string; tag?: string } = {};
     if (title.trim().length < 3 || title.trim().length > 50) {
-      newErrors.title = 'Заголовок має бути від 3 до 50 символів.';
+      newErrors.title = 'The title should be from 3 to 50 characters.';
     }
     if (content.length > 500) {
-      newErrors.content = 'Зміст має бути не більше 500 символів.';
+      newErrors.content = 'The content should not exceed 500 characters.';
     }
     if (!tags.includes(tag)) {
-      newErrors.tag = 'Недійсний тег.';
+      newErrors.tag = 'Invalid tag.';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -80,7 +80,7 @@ export default function NoteForm({}: NoteFormProps) {
   return (
     <form className={css.form} onSubmit={handleSubmit}>
       <div className={css.formGroup}>
-        <label htmlFor="title">Заголовок</label>
+        <label htmlFor="title">Title.</label>
         <input
           id="title"
           name="title"
@@ -106,7 +106,7 @@ export default function NoteForm({}: NoteFormProps) {
         {errors.content && <span className={css.error}>{errors.content}</span>}
       </div>
       <div className={css.formGroup}>
-        <label htmlFor="tag">Тег</label>
+        <label htmlFor="tag">Tag</label>
         <select
           id="tag"
           name="tag"
@@ -130,10 +130,10 @@ export default function NoteForm({}: NoteFormProps) {
           onClick={handleCancel}
           disabled={isPending}
         >
-          Скасувати
+          Cancel
         </button>
         <button type="submit" className={css.submitButton} disabled={isPending}>
-          Створити нотатку
+          Create a note
         </button>
       </div>
     </form>

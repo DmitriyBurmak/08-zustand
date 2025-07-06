@@ -19,13 +19,11 @@ export async function generateMetadata({
   const tag = slug?.[0] || 'all';
 
   const pageTitle =
-    tag === 'all'
-      ? 'NoteHub - Усі нотатки'
-      : `NoteHub - Нотатки за тегом: ${tag}`;
+    tag === 'all' ? 'NoteHub - All notes' : `NoteHub - Notes by tag: ${tag}`;
   const pageDescription =
     tag === 'all'
-      ? 'Переглядайте та керуйте всіма своїми нотатками на NoteHub.'
-      : `Переглядайте та керуйте своїми нотатками, відфільтрованими за тегом "${tag}" на NoteHub.`;
+      ? 'View and manage all your notes on NoteHub.'
+      : `View and manage your notes filtered by tag "${tag}" on NoteHub.`;
 
   const baseUrl = getBaseUrl();
   const pageUrl = `${baseUrl}/notes/filter/${tag.toLowerCase()}`;
