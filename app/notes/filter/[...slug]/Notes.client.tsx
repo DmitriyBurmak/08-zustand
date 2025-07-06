@@ -6,12 +6,11 @@ import { useNotes } from '@/hooks/useNotes';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
+import Link from 'next/link'; 
 import css from './NotesPage.module.css';
 import Loader from '@/app/loading';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
-import type { Note, NotesResponse, NoteTag } from '@/types/note';
+import type { Note, NotesResponse} from '@/types/note'; 
 
 interface NotesClientProps {
   initialNotes: Note[];
@@ -27,7 +26,6 @@ const NotesClient: React.FC<NotesClientProps> = ({
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 300);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const notesPerPage = 12;
 
   useEffect(() => {
@@ -36,7 +34,6 @@ const NotesClient: React.FC<NotesClientProps> = ({
   }, [currentTag]);
 
   const apiTag = currentTag.toLowerCase() === 'all' ? undefined : currentTag;
-
   const {
     data: notesData,
     isLoading,
@@ -53,24 +50,8 @@ const NotesClient: React.FC<NotesClientProps> = ({
       } as NotesResponse,
     }
   );
-
   const totalPages = notesData?.totalPages || 1;
   const currentNotes = notesData?.notes || [];
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleOpenCreateModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsModalOpen(true);
-  };
-
-  const initialFormValues = {
-    title: '',
-    content: '',
-    tag: 'Todo' as NoteTag,
-  };
 
   return (
     <div className={css.app}>
@@ -82,7 +63,6 @@ const NotesClient: React.FC<NotesClientProps> = ({
             setPage(1);
           }}
         />
-
         {totalPages > 1 && (
           <Pagination
             page={page}
@@ -90,10 +70,9 @@ const NotesClient: React.FC<NotesClientProps> = ({
             totalPages={totalPages}
           />
         )}
-
-        <button className={css.button} onClick={handleOpenCreateModal}>
+        <Link href="/notes/action/create" className={css.button}>
           Create Note +
-        </button>
+        </Link>
       </header>
       {isLoading && <Loader />}
       {isError && (
@@ -106,17 +85,7 @@ const NotesClient: React.FC<NotesClientProps> = ({
         !isError &&
         currentNotes.length > 0 && <NoteList notes={currentNotes} />
       )}
-      {isModalOpen && (
-        <Modal onClose={handleModalClose}>
-          <h2 className={css.modalTitle}>Create note</h2>{' '}
-          <NoteForm
-            initialValues={initialFormValues}
-            onSubmitSuccess={handleModalClose}
-            onClose={handleModalClose}
-          />
-        </Modal>
-      )}
-    </div>
+       </div>
   );
 };
 
