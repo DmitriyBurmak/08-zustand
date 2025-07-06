@@ -7,7 +7,6 @@ import {
 import NotesClient from './Notes.client';
 import type { NotesResponse } from '@/types/note';
 import { Metadata } from 'next';
-import { title } from 'process';
 
 interface NotesPageProps {
   params: Promise<{ slug: string[] }>;
