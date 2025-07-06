@@ -7,13 +7,13 @@ import { getBaseUrl, NOTEHUB_OG_IMAGE } from '@/lib/utils/seo';
 const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
-  title: 'NoteHub - Створити нотатку',
+  title: 'NoteHub - Create a note',
   description:
-    'Створіть нову нотатку в NoteHub. Швидке та просте додавання нових записів.',
+    'Create a new note in NoteHub. Add new notes quickly and easily.',
   openGraph: {
     title: 'NoteHub - Створити нотатку',
     description:
-      'Створіть нову нотатку в NoteHub. Швидке та просте додавання нових записів.',
+      'Create a new note in NoteHub. Add new notes quickly and easily.',
     url: `${baseUrl}/notes/action/create`,
     images: [
       {
@@ -30,7 +30,7 @@ export default function CreateNotePage() {
   return (
     <main className={css.main}>
       <div className={css.container}>
-        <h1 className={css.title}>Створити нотатку</h1>
+        <h1 className={css.title}>Create a note</h1>
         <NoteForm />
       </div>
     </main>
